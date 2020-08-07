@@ -50,12 +50,19 @@ def split_by_manifest(filename, manifest, vcodec="copy", acodec="copy",
                 split_length = video_config.get("end_time", None)
                 if not split_length:
                     split_length = video_config["length"]
+                """
+                rename_to will continue to serve the purpose.
+                append_with will serve as an addition
                 filebase = video_config["rename_to"]
+                """
+                filebase = video_config.get("rename_to", filename)
                 if fileext in filebase:
                     filebase = ".".join(filebase.split(".")[:-1])
-
+                append_with = video_config.get("append_with", "")
+                target_file = filebase + append_with + "." + fileext
+                
                 split_args += ["-ss", str(split_start), "-t",
-                    str(split_length), filebase + "." + fileext]
+                    str(split_length), target_file]
                 print("########################################################")
                 print("About to run: "+" ".join(split_cmd+split_args))
                 print("########################################################")
