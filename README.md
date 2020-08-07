@@ -67,7 +67,7 @@ start_time,length,rename_to
 * length          - length of the video in seconds. The end time of the video is calculated by the start_time plus the length of the video.
 * rename_to       - name of the video clip to be saved
 * end_time        - end time of the video
-
+* append_with     - string to be appended to the video clip to be saved (Note: ommitting rename_to will append this string to the original file name).
 
 ## Additional Arguments
 
