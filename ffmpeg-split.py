@@ -59,10 +59,13 @@ def split_by_manifest(filename, manifest, vcodec="copy", acodec="copy",
                 filebase = video_config.get("rename_to", filename)
                 if fileext in filebase:
                     filebase = ".".join(filebase.split(".")[:-1])
-                index += 1
-                append_with = video_config.get("append_with", index)
+                append_with = video_config.get("append_with", "")
                 target_file = filebase + append_with + "." + fileext
-                
+                if target_file == filename :
+                    index += 1
+                    append_with += "_" + str(index)
+                    target_file = filebase + append_with + "." + fileext
+
                 split_args += ["-ss", str(split_start), "-t",
                     str(split_length), target_file]
                 print("########################################################")
