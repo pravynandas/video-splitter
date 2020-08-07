@@ -42,6 +42,7 @@ def split_by_manifest(filename, manifest, vcodec="copy", acodec="copy",
             fileext = filename.split(".")[-1]
         except IndexError as e:
             raise IndexError("No . in filename. Error: " + str(e))
+        index = 0
         for video_config in config:
             split_str = ""
             split_args = []
@@ -58,7 +59,8 @@ def split_by_manifest(filename, manifest, vcodec="copy", acodec="copy",
                 filebase = video_config.get("rename_to", filename)
                 if fileext in filebase:
                     filebase = ".".join(filebase.split(".")[:-1])
-                append_with = video_config.get("append_with", "")
+                index += 1
+                append_with = video_config.get("append_with", index)
                 target_file = filebase + append_with + "." + fileext
                 
                 split_args += ["-ss", str(split_start), "-t",
